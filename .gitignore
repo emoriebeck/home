@@ -1,5 +1,6 @@
 .Rproj.user
 .Rhistory
-.Rdata
-.httr-oauth
+.RData
+.Ruserdata
 .DS_Store
+Thumbs.db
