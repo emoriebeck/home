@@ -1,0 +1,479 @@
+---
+title: "`purrr`"
+author: "Emorie D Beck"
+date: "February 21, 2019"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    df_print: paged
+    code_folding: show
+    toc: true
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<div id="iteration" class="section level1">
+<h1>Iteration</h1>
+<p>Iteration is everywhere. It underpins much of mathematics and statistics. If you’ve ever seen the <span class="math inline">\(\Sigma\)</span> symbol, then you’ve seen (and probably used) iteration.</p>
+<p>Reasons for iteration:<br />
+- reading in multiple files from a directory<br />
+- running the same operation multiple times<br />
+- running different combinations of the same model<br />
+- creating similar figures / tables / outputs</p>
+<div id="for-loops" class="section level2">
+<h2><code>for</code> loops</h2>
+<p>Enter <code>for</code> loops. <code>for</code> loops are the “OG” form of iteration in computer science. The basic syntax is below. Basically, we can use a for loop to loop through and print a series of things.</p>
+<pre class="r code-style"><code>for(i in letters[1:5]){
+  print(i)
+}</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<p>The code above “loops” through 5 times, printing the iteration letter.</p>
+</div>
+<div id="apply-family" class="section level2">
+<h2><code>_apply()</code> family</h2>
+<p>A somewhat faster version of <code>for</code> loops comes from the <code>_apply()</code> family of functions, including: <code>apply()</code>, <code>lapply()</code>, <code>sapply()</code>, and <code>mapply()</code>. Unlike <code>for</code> loops, these are vectorized, which makes them more efficient.</p>
+<pre class="r code-style"><code>lapply(letters[1:5], print)</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;a&quot;
+## 
+## [[2]]
+## [1] &quot;b&quot;
+## 
+## [[3]]
+## [1] &quot;c&quot;
+## 
+## [[4]]
+## [1] &quot;d&quot;
+## 
+## [[5]]
+## [1] &quot;e&quot;</code></pre>
+<pre class="r code-style"><code>sapply(letters[1:5], print)</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<pre><code>##   a   b   c   d   e 
+## &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</code></pre>
+<pre class="r code-style"><code>mapply(print, letters[1:5])</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<pre><code>##   a   b   c   d   e 
+## &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</code></pre>
+</div>
+<div id="purrr-and-_map_-functions" class="section level2">
+<h2><code>purrr</code> and <code>_map_()</code> functions</h2>
+<p>Today, though, we’ll focus on the <code>map()</code> family of functions, which is the functions through which <code>purrr</code> iterates.</p>
+<pre class="r code-style"><code>map(letters[1:5], print)</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;a&quot;
+## 
+## [[2]]
+## [1] &quot;b&quot;
+## 
+## [[3]]
+## [1] &quot;c&quot;
+## 
+## [[4]]
+## [1] &quot;d&quot;
+## 
+## [[5]]
+## [1] &quot;e&quot;</code></pre>
+<p><strong>For a more thorough comparison of <code>for</code> loops, the <code>_apply()</code> family, and <code>_map_()</code> functions, see <a href="https://jennybc.github.io/purrr-tutorial/" class="uri">https://jennybc.github.io/purrr-tutorial/</a></strong></p>
+</div>
+<div id="purrr-and-_map_-predicates" class="section level2">
+<h2><code>purrr</code> and <code>_map_()</code> predicates</h2>
+<p>Today, though, we’ll focus on the <code>map()</code> family of functions, which is the functions through which <code>purrr</code> iterates.</p>
+<pre class="r code-style"><code>map(letters[1:5], print)</code></pre>
+<p>Note that this returns a list, which we may not always want. With <code>purrr</code>, we can change the kind of output of <code>map()</code> by adding a predicate, like <code>lgl</code>, <code>dbl</code>, <code>chr</code>, and <code>df</code>. So in the example above, we may have wanted just the characters to print. To do that we’d call <code>map_chr()</code>:</p>
+<pre class="r code-style"><code>map_chr(letters[1:5], print)</code></pre>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;
+## [1] &quot;e&quot;</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</code></pre>
+<p>Note that it also returns the concatenated character vector as well as printing each letter individually (i.e. iteratively).</p>
+</div>
+<div id="purrr-and-_map_-antecedents" class="section level2">
+<h2><code>purrr</code> and <code>_map_()</code> antecedents</h2>
+<ul>
+<li>Single mapping: <code>map_()</code><br />
+</li>
+<li>Parallel (2) mapping(s): <code>map2_()</code><br />
+</li>
+<li>3 or more mappings: <code>pmap_()</code></li>
+</ul>
+<pre class="r code-style"><code>map2_chr(letters[1:5], 1:5, paste)</code></pre>
+<pre><code>## [1] &quot;a 1&quot; &quot;b 2&quot; &quot;c 3&quot; &quot;d 4&quot; &quot;e 5&quot;</code></pre>
+<p>Note here that we can use <code>map2()</code> and <code>pmap()</code> with the predicates from above.</p>
+</div>
+</div>
+<div id="use-cases" class="section level1">
+<h1>Use Cases</h1>
+<ol style="list-style-type: decimal">
+<li>Reading Data<br />
+</li>
+<li>Running Models<br />
+</li>
+<li>(Plotting Figures - Kendra Smith, March 20)<br />
+</li>
+<li>(Creating Tables - Emorie Beck (Me), April 17)</li>
+</ol>
+<div id="reading-data" class="section level2">
+<h2>Reading Data</h2>
+<p>There are a number of different cases where <code>purrr</code> and <code>map()</code> maybe useful for reading in data including:</p>
+<ul>
+<li>subject-level files for an experimental task<br />
+</li>
+<li>subject- and task-level files for an experimental task</li>
+<li>EMA data<br />
+</li>
+<li>longitudinal data<br />
+</li>
+<li>web scraping and text mining</li>
+</ul>
+</div>
+<div id="reading-data-subject-level-ema" class="section level2">
+<h2>Reading Data: Subject-Level EMA</h2>
+<p>For this first example, I’ll show you how this would look with a <code>for</code> loop before I show you how it looks with <code>purrr</code>.</p>
+<p>Assuming you have all the data in a single folder and the format is reasonably similar, you have the following basic syntax:</p>
+<pre class="r code-style"><code>data_path &lt;- &quot;&quot;
+files &lt;- list.files(data_path)
+data &lt;- list()
+for(i in files){
+  data[[i]] &lt;- read.csv(i, stringsAsFactors = F)
+}
+data &lt;- combine(data)</code></pre>
+<p>This works fine in this simple case, but where <code>purrr</code> really shines in when you need to make modifications to your data before combining, whether this be recoding, removing missing cases, or renaming variables.</p>
+<p>But first, the simple case of reading data. The code below will download a .zip file when you run it. Once, you do, navigate to your Desktop to unzip the folder. You should now be able to run the rest of the code.</p>
+<pre class="r code-style"><code>library(httr)
+list_files_github &lt;- function(){
+  req &lt;- GET(&quot;https://api.github.com/repos/emoriebeck/R-tutorials/git/trees/master?recursive=1&quot;)
+  stop_for_status(req)
+  filelist &lt;- unlist(lapply(content(req)$tree, &quot;[&quot;, &quot;path&quot;), use.names = F)
+  grep(&quot;05_purrr/data/example_1/&quot;, filelist, value = TRUE, fixed = TRUE)
+}
+
+data_path &lt;- &quot;https://media.githubusercontent.com/media/emoriebeck/R-tutorials/master/05_purrr&quot;
+df1 &lt;- tibble(
+  ID = list_files_github() %&gt;% str_remove_all(., &quot;05_purrr/data/example_1&quot;) %&gt;% str_remove_all(., &quot;[a-z A-Z_.//]&quot;)
+  ) %&gt;%
+  mutate(data = map(ID, ~read_csv(sprintf(&quot;%s/data/example_1/%s.csv&quot;, data_path, .)))) %&gt;%
+  unnest(data) </code></pre>
+<p>The code above creates a list of ID’s from the data path (files named for each person), reads the data in using the <code>map()</code> function from <code>purrr</code>, removes the “.csv” from the ID variable, then unnests the data, resulting in a data frame for each person.</p>
+</div>
+</div>
+<div id="list-columns-and-the-power-of-purrr" class="section level1">
+<h1>List Columns and the Power of <code>purrr</code></h1>
+<p>On the previous slide, we saw a data frame <strong>inside</strong> of a data frame. This is called a list column within a nested data frame.</p>
+<p>In this case, we created a list column using map, but one of the best things about <code>purrr</code> is how it combines with the <code>nest()</code> and <code>unnest()</code> functions from the <code>tidyr</code> package.</p>
+<p>We’ll return to <code>nest()</code> later to demonstrate how anything you would iterate across is also something we can <code>nest()</code> by in long format data frames.</p>
+</div>
+<div id="exercise-reading-in-subject-level-data" class="section level1">
+<h1>Exercise: Reading in Subject-Level Data</h1>
+<pre class="r code-style"><code># data_path &lt;- &quot;~/Desktop/purrr&quot;
+codebook &lt;- sprintf(&quot;%s/data/codebook_ex1.csv&quot;, data_path) %&gt;% read_csv(.)
+codebook</code></pre>
+<pre><code>## # A tibble: 11 x 5
+##    old_name   new_name  description            scale                reverse_code
+##    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt;                &lt;chr&gt;       
+##  1 O_AesSens  O_1       Value artistic experi… &quot;likert scale from … no          
+##  2 E_Assert   E_1       Assertive              &quot;likert scale from … no          
+##  3 N_Depr     N_1       Depressed              &quot;likert scale from … no          
+##  4 N_EmoVol   N_2       Feel emotionally vola… &quot;likert scale from … no          
+##  5 O_IntCur   O_2       Curious, open to new … &quot;likert scale from … no          
+##  6 C_Org      C_1       Organized              &quot;likert scale from … no          
+##  7 A_Rspct    A_1       Resepct others         &quot;likert scale from … no          
+##  8 C_Rspnbl   C_2       Responsible            &quot;likert scale from … no          
+##  9 A_Cmpn     A_2       Compassionate          &quot;likert scale from … no          
+## 10 E_EnerLev  E_2       Energetic              &quot;likert scale from … no          
+## 11 satisfact… satisfac… How satisfied are you… &quot;likert scale from … no</code></pre>
+<p>Now, we’re going to combine with what we learned about last time with codebooks.</p>
+<p>Now, that we have a codebook, what are the next steps?<br />
+1. pull old names in raw data from codebook<br />
+2. pull new names from codebook<br />
+3. select columns from codebook in loaded data<br />
+4. rename columns with new names</p>
+</div>
+<div id="exercise-reading-in-subject-level-data-1" class="section level1">
+<h1>Exercise: Reading in Subject-Level Data</h1>
+<pre class="r code-style"><code>old.names &lt;- codebook$old_name # pull old names in raw data from codebook  
+new.names &lt;- codebook$new_name # pull new names from codebook  
+df1 &lt;- tibble(
+  ID = list_files_github() %&gt;% str_remove_all(., &quot;05_purrr/data/example_1&quot;) %&gt;% str_remove_all(., &quot;[a-z A-Z_.//]&quot;)
+  ) %&gt;%
+  mutate(data = map(ID, ~read_csv(sprintf(&quot;%s/data/example_1/%s.csv&quot;, data_path, .)))) %&gt;%
+  unnest(data) %&gt;%
+  select(ID, count, one_of(old.names)) %&gt;% # select columns from codebook in loaded data  
+  setNames(c(&quot;ID&quot;, &quot;count&quot;, new.names)) # rename columns with new names  
+df1</code></pre>
+<pre><code>## # A tibble: 2,763 x 13
+##    ID     count   O_1   E_1   N_1   N_2   O_2   C_1   A_1   C_2   A_2   E_2
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 031501     1  3.98  3.82  2     3.89  5       NA  3       NA  2.63  4   
+##  2 031501     2  4.00  2     1     3     2.90    NA  2.16    NA  3.54  3   
+##  3 031501     3  4     3     3.5   4     4       NA  4.69    NA  4     3   
+##  4 031501     4  3     3     3     4     3.06    NA  4       NA  3.27  3.46
+##  5 031501     5  3.35  3.50  2     2     2.01    NA  4       NA  4     4   
+##  6 031501     6  3.89  3     2.33  2.38  3.5     NA  4       NA  4.25  4   
+##  7 031501     7  3.01  3     2.5   2     5.06    NA  4       NA  4     4.27
+##  8 031501     8  3.00  3     2.5   2     3.56    NA  4       NA  4     4   
+##  9 031501     9  4.00  2.5   2     3     4       NA  4       NA  3.95  3.65
+## 10 031501    10  4.20  3.45  2     2     3       NA  3.87    NA  4     4   
+## # … with 2,753 more rows, and 1 more variable: satisfaction &lt;dbl&gt;</code></pre>
+<div id="descriptives-within-person-correlations" class="section level2">
+<h2>Descriptives: Within-Person Correlations</h2>
+<p>With these kinds of data, the first thing, we may want to do is look at within-person correlations, which we can do with <code>purrr</code>.</p>
+<pre class="r code-style"><code>nested.r &lt;- df1 %&gt;%
+  group_by(ID) %&gt;%
+  nest() %&gt;%
+  mutate(r = map(data, ~cor((.) %&gt;% select(-count), use = &quot;pairwise&quot;)))
+nested.r</code></pre>
+<pre><code>## # A tibble: 59 x 3
+## # Groups:   ID [59]
+##    ID     data               r                   
+##    &lt;chr&gt;  &lt;list&gt;             &lt;list&gt;              
+##  1 031501 &lt;tibble [64 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  2 031502 &lt;tibble [39 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  3 032201 &lt;tibble [68 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  4 032202 &lt;tibble [65 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  5 032203 &lt;tibble [61 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  6 032901 &lt;tibble [79 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  7 040501 &lt;tibble [48 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  8 040502 &lt;tibble [41 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+##  9 040503 &lt;tibble [53 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+## 10 040504 &lt;tibble [41 × 12]&gt; &lt;dbl[,11] [11 × 11]&gt;
+## # … with 49 more rows</code></pre>
+<p>We can access it like a list:</p>
+<pre class="r code-style"><code>nested.r$data[[1]]</code></pre>
+<pre><code>## # A tibble: 64 x 12
+##    count   O_1   E_1   N_1   N_2   O_2   C_1   A_1   C_2   A_2   E_2
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  3.98  3.82  2     3.89  5       NA  3       NA  2.63  4   
+##  2     2  4.00  2     1     3     2.90    NA  2.16    NA  3.54  3   
+##  3     3  4     3     3.5   4     4       NA  4.69    NA  4     3   
+##  4     4  3     3     3     4     3.06    NA  4       NA  3.27  3.46
+##  5     5  3.35  3.50  2     2     2.01    NA  4       NA  4     4   
+##  6     6  3.89  3     2.33  2.38  3.5     NA  4       NA  4.25  4   
+##  7     7  3.01  3     2.5   2     5.06    NA  4       NA  4     4.27
+##  8     8  3.00  3     2.5   2     3.56    NA  4       NA  4     4   
+##  9     9  4.00  2.5   2     3     4       NA  4       NA  3.95  3.65
+## 10    10  4.20  3.45  2     2     3       NA  3.87    NA  4     4   
+## # … with 54 more rows, and 1 more variable: satisfaction &lt;dbl&gt;</code></pre>
+</div>
+<div id="models" class="section level2">
+<h2>Models</h2>
+<p>To run separate models for each trait, we’ll need to reshape our data.</p>
+<pre class="r code-style"><code>df.long &lt;- df1 %&gt;%
+  gather(key = item, value = value, -count, -ID, -satisfaction, na.rm = T)
+df.long</code></pre>
+<pre><code>## # A tibble: 22,104 x 5
+##    ID     count satisfaction item  value
+##    &lt;chr&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+##  1 031501     1         4.96 O_1    3.98
+##  2 031501     2         4.79 O_1    4.00
+##  3 031501     3         1.06 O_1    4   
+##  4 031501     4         3.03 O_1    3   
+##  5 031501     5         1.05 O_1    3.35
+##  6 031501     6         2.50 O_1    3.89
+##  7 031501     7         3.45 O_1    3.01
+##  8 031501     8         2.39 O_1    3.00
+##  9 031501     9         4.06 O_1    4.00
+## 10 031501    10         4.20 O_1    4.20
+## # … with 22,094 more rows</code></pre>
+<p>To create composites, we’ll separate traits from items.</p>
+<pre class="r code-style"><code>df.long &lt;- df1 %&gt;%
+  gather(key = item, value = value, -count, -ID, -satisfaction, na.rm = T) %&gt;%
+  separate(item, c(&quot;Trait&quot;,  &quot;item&quot;), sep = &quot;_&quot;)
+df.long</code></pre>
+<pre><code>## # A tibble: 22,104 x 6
+##    ID     count satisfaction Trait item  value
+##    &lt;chr&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+##  1 031501     1         4.96 O     1      3.98
+##  2 031501     2         4.79 O     1      4.00
+##  3 031501     3         1.06 O     1      4   
+##  4 031501     4         3.03 O     1      3   
+##  5 031501     5         1.05 O     1      3.35
+##  6 031501     6         2.50 O     1      3.89
+##  7 031501     7         3.45 O     1      3.01
+##  8 031501     8         2.39 O     1      3.00
+##  9 031501     9         4.06 O     1      4.00
+## 10 031501    10         4.20 O     1      4.20
+## # … with 22,094 more rows</code></pre>
+<p>To create composites, we’ll then <code>group_by()</code> trait, count, and ID and calculate the composites using <code>summarize()</code></p>
+<pre class="r code-style"><code>df.long &lt;- df1 %&gt;%
+  gather(key = item, value = value, -count, -ID, -satisfaction, na.rm = T) %&gt;%
+  separate(item, c(&quot;Trait&quot;,  &quot;item&quot;), sep = &quot;_&quot;) %&gt;%
+  group_by(ID, count, Trait) %&gt;%
+  summarize(value = mean(value)) 
+df.long</code></pre>
+<pre><code>## # A tibble: 11,052 x 4
+## # Groups:   ID, count [2,763]
+##    ID     count Trait value
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+##  1 031501     1 A      2.81
+##  2 031501     1 E      3.91
+##  3 031501     1 N      2.94
+##  4 031501     1 O      4.49
+##  5 031501     2 A      2.85
+##  6 031501     2 E      2.5 
+##  7 031501     2 N      2   
+##  8 031501     2 O      3.45
+##  9 031501     3 A      4.35
+## 10 031501     3 E      3   
+## # … with 11,042 more rows</code></pre>
+<p>Then we’ll get within-person centered values using <code>scale()</code>.</p>
+<pre class="r code-style"><code>df.long &lt;- df1 %&gt;%
+  gather(key = item, value = value, -count, -ID, -satisfaction, na.rm = T) %&gt;%
+  separate(item, c(&quot;Trait&quot;,  &quot;item&quot;), sep = &quot;_&quot;) %&gt;%
+  group_by(ID, count, Trait, satisfaction) %&gt;%
+  summarize(value = mean(value)) %&gt;%
+  group_by(ID, Trait) %&gt;%
+  mutate(value_c = as.numeric(scale(value, center = T, scale = F)))
+df.long</code></pre>
+<pre><code>## # A tibble: 11,052 x 6
+## # Groups:   ID, Trait [236]
+##    ID     count Trait satisfaction value value_c
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 031501     1 A             4.96  2.81  -0.976
+##  2 031501     1 E             4.96  3.91   0.807
+##  3 031501     1 N             4.96  2.94   0.552
+##  4 031501     1 O             4.96  4.49   0.907
+##  5 031501     2 A             4.79  2.85  -0.939
+##  6 031501     2 E             4.79  2.5   -0.604
+##  7 031501     2 N             4.79  2     -0.393
+##  8 031501     2 O             4.79  3.45  -0.128
+##  9 031501     3 A             1.06  4.35   0.557
+## 10 031501     3 E             1.06  3     -0.104
+## # … with 11,042 more rows</code></pre>
+<p>And grand-mean centered within-person averages</p>
+<pre class="r code-style"><code>df.long &lt;- df.long %&gt;%
+  group_by(ID, Trait) %&gt;%
+  summarize(value_gmc = mean(value)) %&gt;%
+  group_by(Trait) %&gt;%
+  mutate(value_gmc = as.numeric(scale(value_gmc, center = T, scale = F))) %&gt;%
+  full_join(df.long)
+df.long</code></pre>
+<pre><code>## # A tibble: 11,052 x 7
+## # Groups:   Trait [5]
+##    ID     Trait value_gmc count satisfaction value value_c
+##    &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 031501 A        -0.108     1         4.96  2.81  -0.976
+##  2 031501 A        -0.108     2         4.79  2.85  -0.939
+##  3 031501 A        -0.108     3         1.06  4.35   0.557
+##  4 031501 A        -0.108     4         3.03  3.64  -0.154
+##  5 031501 A        -0.108     5         1.05  4      0.211
+##  6 031501 A        -0.108     6         2.50  4.12   0.336
+##  7 031501 A        -0.108     7         3.45  4      0.211
+##  8 031501 A        -0.108     8         2.39  4      0.211
+##  9 031501 A        -0.108     9         4.06  3.98   0.186
+## 10 031501 A        -0.108    10         4.20  3.93   0.145
+## # … with 11,042 more rows</code></pre>
+<div id="run-models" class="section level3">
+<h3>Run Models</h3>
+<p>And now we are ready to run our models. But first, we’ll <code>nest()</code> our data.</p>
+<pre class="r code-style"><code>nested.mods &lt;- df.long %&gt;%
+  group_by(Trait) %&gt;%
+  nest()
+nested.mods</code></pre>
+<pre><code>## # A tibble: 5 x 2
+## # Groups:   Trait [5]
+##   Trait data                
+##   &lt;chr&gt; &lt;list&gt;              
+## 1 A     &lt;tibble [2,278 × 6]&gt;
+## 2 E     &lt;tibble [2,146 × 6]&gt;
+## 3 N     &lt;tibble [2,184 × 6]&gt;
+## 4 O     &lt;tibble [2,393 × 6]&gt;
+## 5 C     &lt;tibble [2,051 × 6]&gt;</code></pre>
+<p>And now run the models.</p>
+<pre class="r code-style"><code>nested.mods &lt;- df.long %&gt;%
+  group_by(Trait) %&gt;%
+  nest() %&gt;%
+  mutate(model = map(data, ~lmer(satisfaction ~ value_c * value_gmc + (1 | ID), data = .)))
+nested.mods</code></pre>
+<pre><code>## # A tibble: 5 x 3
+## # Groups:   Trait [5]
+##   Trait data                 model    
+##   &lt;chr&gt; &lt;list&gt;               &lt;list&gt;   
+## 1 A     &lt;tibble [2,278 × 6]&gt; &lt;lmerMod&gt;
+## 2 E     &lt;tibble [2,146 × 6]&gt; &lt;lmerMod&gt;
+## 3 N     &lt;tibble [2,184 × 6]&gt; &lt;lmerMod&gt;
+## 4 O     &lt;tibble [2,393 × 6]&gt; &lt;lmerMod&gt;
+## 5 C     &lt;tibble [2,051 × 6]&gt; &lt;lmerMod&gt;</code></pre>
+<p>And get data frames of the results:</p>
+<pre class="r code-style"><code>nested.mods &lt;- df.long %&gt;%
+  group_by(Trait) %&gt;%
+  nest() %&gt;%
+  mutate(model = map(data, ~lmer(satisfaction ~ value_c * value_gmc + (1 | ID), data = .)),
+         tidy = map(model, ~tidy(., conf.int = T)))
+nested.mods</code></pre>
+<pre><code>## # A tibble: 5 x 4
+## # Groups:   Trait [5]
+##   Trait data                 model     tidy            
+##   &lt;chr&gt; &lt;list&gt;               &lt;list&gt;    &lt;list&gt;          
+## 1 A     &lt;tibble [2,278 × 6]&gt; &lt;lmerMod&gt; &lt;tibble [6 × 8]&gt;
+## 2 E     &lt;tibble [2,146 × 6]&gt; &lt;lmerMod&gt; &lt;tibble [6 × 8]&gt;
+## 3 N     &lt;tibble [2,184 × 6]&gt; &lt;lmerMod&gt; &lt;tibble [6 × 8]&gt;
+## 4 O     &lt;tibble [2,393 × 6]&gt; &lt;lmerMod&gt; &lt;tibble [6 × 8]&gt;
+## 5 C     &lt;tibble [2,051 × 6]&gt; &lt;lmerMod&gt; &lt;tibble [6 × 8]&gt;</code></pre>
+<p>Which we can print into pretty data frames</p>
+<pre class="r code-style"><code>nested.mods %&gt;%
+  select(Trait, tidy) %&gt;%
+  unnest(tidy)</code></pre>
+<pre><code>## # A tibble: 30 x 9
+## # Groups:   Trait [5]
+##    Trait effect  group  term     estimate std.error statistic conf.low conf.high
+##    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+##  1 A     fixed   &lt;NA&gt;   (Interc…   2.98      0.0248   120.      2.93     3.03   
+##  2 A     fixed   &lt;NA&gt;   value_c   -0.0233    0.0399    -0.584  -0.101    0.0549 
+##  3 A     fixed   &lt;NA&gt;   value_g…   0.129     0.0920     1.40   -0.0518   0.309  
+##  4 A     fixed   &lt;NA&gt;   value_c…   0.162     0.142      1.14   -0.117    0.440  
+##  5 A     ran_pa… ID     sd__(In…   0.0404   NA         NA      NA       NA      
+##  6 A     ran_pa… Resid… sd__Obs…   1.15     NA         NA      NA       NA      
+##  7 E     fixed   &lt;NA&gt;   (Interc…   2.98      0.0250   119.      2.93     3.03   
+##  8 E     fixed   &lt;NA&gt;   value_c   -0.0672    0.0354    -1.90   -0.137    0.00219
+##  9 E     fixed   &lt;NA&gt;   value_g…   0.174     0.0725     2.40    0.0319   0.316  
+## 10 E     fixed   &lt;NA&gt;   value_c…   0.0248    0.0971     0.256  -0.165    0.215  
+## # … with 20 more rows</code></pre>
+</div>
+<div id="plotting" class="section level3">
+<h3>Plotting</h3>
+<p>Which we can pretty easily turn into plots:</p>
+<pre class="r code-style"><code>nested.mods %&gt;%
+  select(Trait, tidy) %&gt;%
+  unnest(tidy) %&gt;%
+  filter(term == &quot;value_c&quot;) %&gt;%
+  ggplot(aes(x = Trait, y = estimate, ymin = conf.low, ymax = conf.high)) +
+    geom_errorbar(position = &quot;dodge&quot;, width = .1) +
+    geom_point(aes(color = Trait), size = 2) +
+    geom_hline(aes(yintercept = 0), linetype = &quot;dashed&quot;) +
+    labs(y = &quot;Personality State-\nSatisfaction Association&quot;) +
+    coord_flip() +
+    theme_classic() +
+    theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="/post/2021-03-29-05-purrr/purrr_files/figure-html/unnamed-chunk-14-1.png" width="288" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>

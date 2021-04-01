@@ -1,0 +1,552 @@
+---
+title: "02: Data Manipulation: Intro to `dplyr`"
+author: "Emorie D Beck"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    code_folding: show
+    toc: true
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<pre class="r"><code>library(psych)
+library(dplyr)</code></pre>
+<div id="dplyr" class="section level1">
+<h1><code>dplyr</code></h1>
+<p>The <code>dplyr</code> package is a powerful set of tools from within the larger <code>tidyverse</code> suite of functions. <code>dplyr</code> functions are useful for a variety of functions, perhaps particularly data manipulation.</p>
+<p>Although there are a large number of functions within the <code>dplyr</code> package, today I’m going to introduce a subset of them along with a small number of use cases. But don’t worry, these functions will be the key underpinning of code I use in all tutorials going forward, so there will be lots more examples and use cases.</p>
+<p>For now, here’s a quick list of the functions we’ll cover today:</p>
+<ol style="list-style-type: decimal">
+<li><code>%&gt;%</code>: The pipe. Read as “and then.”<br />
+</li>
+<li><code>filter()</code>: Pick observations (rows) by their values.<br />
+</li>
+<li><code>select()</code>: Pick variables (columns) by their names.<br />
+</li>
+<li><code>arrange()</code>: Reorder the rows.<br />
+</li>
+<li><code>group_by()</code>: Implicitly split the data set by grouping by names (columns).<br />
+</li>
+<li><code>mutate()</code>: Create new variables with functions of existing variables.<br />
+</li>
+<li><code>summarize()</code> / <code>summarise()</code>: Collapse many values down to a single summary.</li>
+</ol>
+<p>Although each of these functions are powerful alone, they are incredibly powerful in conjunction with one another. So below, I’ll briefly introduce each function, then link them all together using an example of basic data cleaning and summary.</p>
+</div>
+<div id="key-dplyr-functions" class="section level1">
+<h1>Key <code>dplyr</code> Functions</h1>
+<div id="section" class="section level2">
+<h2>1. <code>%&gt;%</code></h2>
+<p>The pipe <code>%&gt;%</code> is wonderful. It makes coding intuitive. Often in coding, you need to use so-called nested functions. For example, you might want to round a number after taking the square of 43.</p>
+<pre class="r"><code>sqrt(43)</code></pre>
+<pre><code>## [1] 6.557439</code></pre>
+<pre class="r"><code>round(sqrt(43), 2)</code></pre>
+<pre><code>## [1] 6.56</code></pre>
+<p>The issue with this comes whenever we need to do a series of operations on a data set or other type of object. In such cases, if we run it in a single call, then we have to start in the middle and read our way out.</p>
+<p>The pipe solves this by allowing you to read from left to right (or top to bottom). The easiest way to think of it is that each call of <code>%&gt;%</code> reads and operates as “and then.” So with the rounded square root of 43, for example:</p>
+<pre class="r"><code>sqrt(43) %&gt;%
+  round(2)</code></pre>
+<pre><code>## [1] 6.56</code></pre>
+<p>As you can see, the two results are the same but the second is slightly easier to follow. And, as you’ll see below, this becomes even more intuitive when you start using it in conjunction with <code>dplyr</code> functions.</p>
+</div>
+<div id="filter" class="section level2">
+<h2>2. <code>filter()</code></h2>
+<p>Often times, when conducting research (experiments or otherwise), there are observations (people, specific trials, etc.) that you don’t want to include.</p>
+<p>Say for example, that you’re interested personality change in adolescence, but you just opened a survey up online. So when you actually download and examine your data, you realize that you have an age range of something like 3-86, not 12-18. In this case, you want to get rid of the people over 18 – that is, <code>filter()</code> them out.</p>
+<pre class="r"><code>data(bfi) # grab the bfi data from the psych package
+bfi &lt;- bfi %&gt;% as_tibble()
+
+summary(bfi$age) # get age descriptives</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    3.00   20.00   26.00   28.78   35.00   86.00</code></pre>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;% # see a pipe!
+  filter(age &lt;= 18) # filter to age up to 18
+
+summary(bfi2$age) # summary of the new data </code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     3.0    16.0    17.0    16.3    18.0    18.0</code></pre>
+<p>But this isn’t quite right. We still have folks below 12. But, the beauty of <code>filter()</code> is that you can do sequence of <code>OR</code> and <code>AND</code> statements when there is more than one condition, such as up to 18 <code>AND</code> at least 12.</p>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;%
+  filter(age &lt;= 18 &amp; age &gt;= 12) # filter to age up to 18 and at least 12
+
+summary(bfi2$age) # summary of the new data </code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    12.0    16.0    17.0    16.4    18.0    18.0</code></pre>
+<p>Got it!</p>
+<p>But filter works for more use cases than just conditional <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code>. It can also be used for cases where we want a single values to match cases with text. Before I demonstrate that, though, I need to convert one of the variables in the <code>bfi</code> data frame to a string. So let’s change gender (1 = male, 2 = female) to text (we’ll get into factors later).</p>
+<pre class="r"><code>bfi$education &lt;- plyr::mapvalues(bfi$education, 1:5, c(&quot;Below HS&quot;, &quot;HS&quot;, &quot;Some College&quot;, &quot;College&quot;, &quot;Higher Degree&quot;))</code></pre>
+<p>Now let’s try a few things:</p>
+<p><strong>1. Create a data set with only individuals with some college (<code>==</code>).</strong></p>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;% 
+  filter(education == &quot;Some College&quot;)
+unique(bfi2$education)</code></pre>
+<pre><code>## [1] &quot;Some College&quot;</code></pre>
+<p><strong>2. Create a data set with only people age 18 (<code>==</code>).</strong></p>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;%
+  filter(age == 18)
+summary(bfi2$age)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##      18      18      18      18      18      18</code></pre>
+<p><strong>3. Create a data set with individuals with some college or above (<code>%in%</code>).</strong></p>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;%
+  filter(education %in% c(&quot;Some College&quot;, &quot;College&quot;, &quot;Higher Degree&quot;))
+unique(bfi2$education)</code></pre>
+<pre><code>## [1] &quot;Some College&quot;  &quot;Higher Degree&quot; &quot;College&quot;</code></pre>
+<p>The <code>%in%</code> operator is wonderful. Instead of comparing a column to a single value, you can compare it to several. So above, when we wanted ages between 12 and 18, we could have done:</p>
+<pre class="r"><code>bfi2 &lt;- bfi %&gt;%
+  filter(age %in% 12:18)
+summary(bfi2$age)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    12.0    16.0    17.0    16.4    18.0    18.0</code></pre>
+<p>I’ve been using <code>dplyr</code> for nearly five years, and I still have to remind myself that when you want to remove rows, you use <code>filter()</code>.</p>
+</div>
+<div id="select" class="section level2">
+<h2>3. <code>select()</code></h2>
+<p>If <code>filter()</code> is for pulling certain observations (rows), then <code>select()</code> is for pulling certain variables (columns). Almost without fail, any data that are received for collected are going to have some variables that are not used, not useful, extraneous, etc. In such cases, it’s good practice to remove these columns to stop your environment from becoming cluttered and eating up your RAM.</p>
+<p>In our <code>bfi</code> data, most of these have been pre-removed, so instead, we’ll imagine we don’t want to use any indicators of Agreeableness (A1-A5) and that we aren’t interested in gender.</p>
+<p>With <code>select()</code>, there are few ways choose variables. We can bare quote name the ones we want to keep, bare quote names we want to remove, or use any of a number of <code>select()</code> helper functions.</p>
+<p><strong>1. Bare quote columns we want to keep:</strong></p>
+<pre class="r"><code>bfi %&gt;%
+  select(C1, C2, C3, C4, C5)</code></pre>
+<pre><code>## # A tibble: 2,800 x 5
+##       C1    C2    C3    C4    C5
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     3     3     4     4
+##  2     5     4     4     3     4
+##  3     4     5     4     2     5
+##  4     4     4     3     5     5
+##  5     4     4     5     3     2
+##  6     6     6     6     1     3
+##  7     5     4     4     2     3
+##  8     3     2     4     2     4
+##  9     6     6     3     4     5
+## 10     6     5     6     2     1
+## # … with 2,790 more rows</code></pre>
+<p>I’m going to stop there because I don’t want to name the additional 17 columns we want to keep. Instead we’ll use <code>:</code> to grab a <em>range</em> of columns.</p>
+<pre class="r"><code>bfi %&gt;%
+  select(C1:O5, education, age)</code></pre>
+<pre><code>## # A tibble: 2,800 x 22
+##       C1    C2    C3    C4    C5    E1    E2    E3    E4    E5    N1    N2    N3
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     3     3     4     4     3     3     3     4     4     3     4     2
+##  2     5     4     4     3     4     1     1     6     4     3     3     3     3
+##  3     4     5     4     2     5     2     4     4     4     5     4     5     4
+##  4     4     4     3     5     5     5     3     4     4     4     2     5     2
+##  5     4     4     5     3     2     2     2     5     4     5     2     3     4
+##  6     6     6     6     1     3     2     1     6     5     6     3     5     2
+##  7     5     4     4     2     3     4     3     4     5     5     1     2     2
+##  8     3     2     4     2     4     3     6     4     2     1     6     3     2
+##  9     6     6     3     4     5     5     3    NA     4     3     5     5     2
+## 10     6     5     6     2     1     2     2     4     5     5     5     5     5
+## # … with 2,790 more rows, and 9 more variables: N4 &lt;int&gt;, N5 &lt;int&gt;, O1 &lt;int&gt;,
+## #   O2 &lt;int&gt;, O3 &lt;int&gt;, O4 &lt;int&gt;, O5 &lt;int&gt;, education &lt;chr&gt;, age &lt;int&gt;</code></pre>
+<p><strong>2. Bare quote columns we don’t want to keep:</strong></p>
+<pre class="r"><code>bfi %&gt;% 
+  select(-(A1:A5), -gender)</code></pre>
+<pre><code>## # A tibble: 2,800 x 22
+##       C1    C2    C3    C4    C5    E1    E2    E3    E4    E5    N1    N2    N3
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     3     3     4     4     3     3     3     4     4     3     4     2
+##  2     5     4     4     3     4     1     1     6     4     3     3     3     3
+##  3     4     5     4     2     5     2     4     4     4     5     4     5     4
+##  4     4     4     3     5     5     5     3     4     4     4     2     5     2
+##  5     4     4     5     3     2     2     2     5     4     5     2     3     4
+##  6     6     6     6     1     3     2     1     6     5     6     3     5     2
+##  7     5     4     4     2     3     4     3     4     5     5     1     2     2
+##  8     3     2     4     2     4     3     6     4     2     1     6     3     2
+##  9     6     6     3     4     5     5     3    NA     4     3     5     5     2
+## 10     6     5     6     2     1     2     2     4     5     5     5     5     5
+## # … with 2,790 more rows, and 9 more variables: N4 &lt;int&gt;, N5 &lt;int&gt;, O1 &lt;int&gt;,
+## #   O2 &lt;int&gt;, O3 &lt;int&gt;, O4 &lt;int&gt;, O5 &lt;int&gt;, education &lt;chr&gt;, age &lt;int&gt;</code></pre>
+<p>Note the <code>()</code> around the columns. That is necessary when you want to remove a range of columns.</p>
+<p><strong>3. Add or remove using <code>select()</code> helper functions.</strong></p>
+<ul>
+<li><code>starts_with()</code>: matches names that begin with quoted argument. For example, if we wanted all the Conscientiousness items, we could call the following:</li>
+</ul>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;))</code></pre>
+<pre><code>## # A tibble: 2,800 x 5
+##       C1    C2    C3    C4    C5
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     3     3     4     4
+##  2     5     4     4     3     4
+##  3     4     5     4     2     5
+##  4     4     4     3     5     5
+##  5     4     4     5     3     2
+##  6     6     6     6     1     3
+##  7     5     4     4     2     3
+##  8     3     2     4     2     4
+##  9     6     6     3     4     5
+## 10     6     5     6     2     1
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>ends_with()</code>: matches names that end with quoted argument. For example, if we wanted the first item in each Big Five scale, we could call:</li>
+</ul>
+<pre class="r"><code>bfi %&gt;% 
+  select(ends_with(&quot;1&quot;))</code></pre>
+<pre><code>## # A tibble: 2,800 x 5
+##       A1    C1    E1    N1    O1
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     2     3     3     3
+##  2     2     5     1     3     4
+##  3     5     4     2     4     4
+##  4     4     4     5     2     3
+##  5     2     4     2     2     3
+##  6     6     6     2     3     4
+##  7     2     5     4     1     5
+##  8     4     3     3     6     3
+##  9     4     6     5     5     6
+## 10     2     6     2     5     5
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>contains()</code>: matches names that contain quote material. This can be any subset of a string, which makes it very useful for a number of contexts we’ll see later. But for now, if I wanted to be lazy or couldn’t remember the name of th education variable, I could call:</li>
+</ul>
+<pre class="r"><code>bfi %&gt;% 
+  select(contains(&quot;edu&quot;))</code></pre>
+<pre><code>## # A tibble: 2,800 x 1
+##    education   
+##    &lt;chr&gt;       
+##  1 &lt;NA&gt;        
+##  2 &lt;NA&gt;        
+##  3 &lt;NA&gt;        
+##  4 &lt;NA&gt;        
+##  5 &lt;NA&gt;        
+##  6 Some College
+##  7 &lt;NA&gt;        
+##  8 HS          
+##  9 Below HS    
+## 10 &lt;NA&gt;        
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>matches()</code>: selects variables that match a regular expression (regex). Regex is tricky. I tend to end up referencing online documentation when I need to use this beyond a few basic expressions that I use very regularly. We’ll start with a simple one, keeping only those variables that either have or do not have numbers:</li>
+</ul>
+<pre class="r"><code># contains numbers
+bfi %&gt;%
+  select(matches(&quot;[0-9]&quot;)) </code></pre>
+<pre><code>## # A tibble: 2,800 x 25
+##       A1    A2    A3    A4    A5    C1    C2    C3    C4    C5    E1    E2    E3
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     2     4     3     4     4     2     3     3     4     4     3     3     3
+##  2     2     4     5     2     5     5     4     4     3     4     1     1     6
+##  3     5     4     5     4     4     4     5     4     2     5     2     4     4
+##  4     4     4     6     5     5     4     4     3     5     5     5     3     4
+##  5     2     3     3     4     5     4     4     5     3     2     2     2     5
+##  6     6     6     5     6     5     6     6     6     1     3     2     1     6
+##  7     2     5     5     3     5     5     4     4     2     3     4     3     4
+##  8     4     3     1     5     1     3     2     4     2     4     3     6     4
+##  9     4     3     6     3     3     6     6     3     4     5     5     3    NA
+## 10     2     5     6     6     5     6     5     6     2     1     2     2     4
+## # … with 2,790 more rows, and 12 more variables: E4 &lt;int&gt;, E5 &lt;int&gt;, N1 &lt;int&gt;,
+## #   N2 &lt;int&gt;, N3 &lt;int&gt;, N4 &lt;int&gt;, N5 &lt;int&gt;, O1 &lt;int&gt;, O2 &lt;int&gt;, O3 &lt;int&gt;,
+## #   O4 &lt;int&gt;, O5 &lt;int&gt;</code></pre>
+<pre class="r"><code># does not contain numbers
+bfi %&gt;%
+  select(!matches(&quot;[0-9]&quot;)) </code></pre>
+<pre><code>## # A tibble: 2,800 x 3
+##    gender education      age
+##     &lt;int&gt; &lt;chr&gt;        &lt;int&gt;
+##  1      1 &lt;NA&gt;            16
+##  2      2 &lt;NA&gt;            18
+##  3      2 &lt;NA&gt;            17
+##  4      2 &lt;NA&gt;            17
+##  5      1 &lt;NA&gt;            17
+##  6      2 Some College    21
+##  7      1 &lt;NA&gt;            18
+##  8      1 HS              19
+##  9      1 Below HS        19
+## 10      2 &lt;NA&gt;            17
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>num_range()</code>: Given a stem and a range of numbers, this selects items in a sequence. This is especially useful when variables of your data set may not be in order.</li>
+</ul>
+<pre class="r"><code># select first 2 Extraversion items
+bfi %&gt;%
+  select(num_range(&quot;E&quot;, 1:2))</code></pre>
+<pre><code>## # A tibble: 2,800 x 2
+##       E1    E2
+##    &lt;int&gt; &lt;int&gt;
+##  1     3     3
+##  2     1     1
+##  3     2     4
+##  4     5     3
+##  5     2     2
+##  6     2     1
+##  7     4     3
+##  8     3     6
+##  9     5     3
+## 10     2     2
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>one_of()</code>: select any of a subset of items from a vector. This is one of my favorites, for reasons we’ll see in my tutorial on workflow and data documentation. But for now, let’s say I thought there were six items in each personality when there are actually five. So when I call the following, <code>one_of()</code> will be forgiving and ignore the fact that I messed up.</li>
+</ul>
+<pre class="r"><code>bfi %&gt;% 
+  select(one_of(paste0(&quot;E&quot;, 1:6)))</code></pre>
+<pre><code>## # A tibble: 2,800 x 5
+##       E1    E2    E3    E4    E5
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     3     3     3     4     4
+##  2     1     1     6     4     3
+##  3     2     4     4     4     5
+##  4     5     3     4     4     4
+##  5     2     2     5     4     5
+##  6     2     1     6     5     6
+##  7     4     3     4     5     5
+##  8     3     6     4     2     1
+##  9     5     3    NA     4     3
+## 10     2     2     4     5     5
+## # … with 2,790 more rows</code></pre>
+<ul>
+<li><code>all_of()</code>: select all of a subset of items from a vector. Unlike <code>one_of()</code>, <code>all_of()</code> is less forgiving and will throw an error if we try to call for 6 Extraversion items.</li>
+</ul>
+<pre class="r"><code>bfi %&gt;%
+  select(all_of(paste0(&quot;E&quot;, 1:6)))</code></pre>
+<pre><code>## Error: Can&#39;t subset columns that don&#39;t exist.
+## x Column `E6` doesn&#39;t exist.</code></pre>
+<p>Oops. In this case, we’d then need to modify the code to reflect the correct number of items.</p>
+<pre class="r"><code>bfi %&gt;%
+  select(all_of(paste0(&quot;E&quot;, 1:5)))</code></pre>
+<pre><code>## # A tibble: 2,800 x 5
+##       E1    E2    E3    E4    E5
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     3     3     3     4     4
+##  2     1     1     6     4     3
+##  3     2     4     4     4     5
+##  4     5     3     4     4     4
+##  5     2     2     5     4     5
+##  6     2     1     6     5     6
+##  7     4     3     4     5     5
+##  8     3     6     4     2     1
+##  9     5     3    NA     4     3
+## 10     2     2     4     5     5
+## # … with 2,790 more rows</code></pre>
+</div>
+<div id="arrange" class="section level2">
+<h2>4. <code>arrange()</code></h2>
+<p>Sometimes, either in order to get a better sense of our data or in order to well, order our data, we want to sort it. Although there is a base <code>R</code> <code>sort()</code> function, the <code>arrange()</code> function is <code>tidyverse</code> version that plays nicely with other <code>tidyverse functions</code>.</p>
+<p>So in our previous examples, we could also <code>arrange()</code> our data by age or education, rather than simply filtering. (Or as we’ll see later, we can do both!)</p>
+<pre class="r"><code># sort by age
+bfi %&gt;% 
+  select(gender:age) %&gt;%
+  arrange(age)</code></pre>
+<pre><code>## # A tibble: 2,800 x 3
+##    gender education       age
+##     &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
+##  1      1 Higher Degree     3
+##  2      2 &lt;NA&gt;              9
+##  3      2 Some College     11
+##  4      2 &lt;NA&gt;             11
+##  5      2 &lt;NA&gt;             11
+##  6      2 &lt;NA&gt;             12
+##  7      2 &lt;NA&gt;             12
+##  8      2 &lt;NA&gt;             12
+##  9      2 &lt;NA&gt;             12
+## 10      1 &lt;NA&gt;             12
+## # … with 2,790 more rows</code></pre>
+<pre class="r"><code># sort by education
+bfi %&gt;%
+  select(gender:age) %&gt;%
+  arrange(education)</code></pre>
+<pre><code>## # A tibble: 2,800 x 3
+##    gender education   age
+##     &lt;int&gt; &lt;chr&gt;     &lt;int&gt;
+##  1      1 Below HS     19
+##  2      1 Below HS     21
+##  3      1 Below HS     17
+##  4      1 Below HS     18
+##  5      1 Below HS     18
+##  6      2 Below HS     18
+##  7      2 Below HS     43
+##  8      1 Below HS     32
+##  9      1 Below HS     18
+## 10      2 Below HS     18
+## # … with 2,790 more rows</code></pre>
+<p>We can also arrange by multiple columns, like if we wanted to sort by gender then education:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(gender:age) %&gt;%
+  arrange(gender, education)</code></pre>
+<pre><code>## # A tibble: 2,800 x 3
+##    gender education   age
+##     &lt;int&gt; &lt;chr&gt;     &lt;int&gt;
+##  1      1 Below HS     19
+##  2      1 Below HS     21
+##  3      1 Below HS     17
+##  4      1 Below HS     18
+##  5      1 Below HS     18
+##  6      1 Below HS     32
+##  7      1 Below HS     18
+##  8      1 Below HS     18
+##  9      1 Below HS     53
+## 10      1 Below HS     18
+## # … with 2,790 more rows</code></pre>
+</div>
+</div>
+<div id="bringing-it-all-together-split-apply-combine" class="section level1">
+<h1>Bringing it all together: Split-Apply-Combine</h1>
+<p>Much of the power of <code>dplyr</code> functions lay in the split-apply-combine method. The method is kind of what it sounds like. A given set of of data are <em>split</em> into smaller chunks, then a function or series of functions are <em>applied</em> to each chunk, and then the chunks are <em>combined</em> back together.</p>
+<p>Although all of the <code>dplyr</code> functions can be used in conjunction with one another, I’m going to highlight the <code>group_by()</code>, <code>mutate()</code>, and <code>summarize()</code> / <code>summarise()</code> functions to highlight the core of the split-apply-combine method.</p>
+<div id="group_by" class="section level2">
+<h2>5. <code>group_by()</code></h2>
+<p>The <code>group_by()</code> function is the “split” of the method. It basically implicitly breaks the data set into chunks by whatever bare quoted column(s)/variable(s) are supplied as arguments.</p>
+<p>So imagine that we wanted to <code>group_by()</code> education levels to get average ages at each level. We would simply call:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  group_by(education)</code></pre>
+<pre><code>## # A tibble: 2,800 x 8
+## # Groups:   education [6]
+##       C1    C2    C3    C4    C5   age gender education   
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       
+##  1     2     3     3     4     4    16      1 &lt;NA&gt;        
+##  2     5     4     4     3     4    18      2 &lt;NA&gt;        
+##  3     4     5     4     2     5    17      2 &lt;NA&gt;        
+##  4     4     4     3     5     5    17      2 &lt;NA&gt;        
+##  5     4     4     5     3     2    17      1 &lt;NA&gt;        
+##  6     6     6     6     1     3    21      2 Some College
+##  7     5     4     4     2     3    18      1 &lt;NA&gt;        
+##  8     3     2     4     2     4    19      1 HS          
+##  9     6     6     3     4     5    19      1 Below HS    
+## 10     6     5     6     2     1    17      2 &lt;NA&gt;        
+## # … with 2,790 more rows</code></pre>
+<p>We can now see that it tells us that we have a tibble with 2,800 rows and 8 columns as well as <code>Groups:   education [6]</code></p>
+<p>Importantly, once you group, you must <code>ungroup()</code> or your data frame will remain “split” and cause you problems. In other words, you must “combine” your data frame back together. This is super easy with the <code>ungroup()</code> function:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  group_by(education) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 2,800 x 8
+##       C1    C2    C3    C4    C5   age gender education   
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       
+##  1     2     3     3     4     4    16      1 &lt;NA&gt;        
+##  2     5     4     4     3     4    18      2 &lt;NA&gt;        
+##  3     4     5     4     2     5    17      2 &lt;NA&gt;        
+##  4     4     4     3     5     5    17      2 &lt;NA&gt;        
+##  5     4     4     5     3     2    17      1 &lt;NA&gt;        
+##  6     6     6     6     1     3    21      2 Some College
+##  7     5     4     4     2     3    18      1 &lt;NA&gt;        
+##  8     3     2     4     2     4    19      1 HS          
+##  9     6     6     3     4     5    19      1 Below HS    
+## 10     6     5     6     2     1    17      2 &lt;NA&gt;        
+## # … with 2,790 more rows</code></pre>
+<p>You can also overwrite groups by calling <code>group_by()</code> more than once. We’ll touch more on that in future tutorials, but for now, notice what happens when I call <code>group_by()</code> twice sequentially:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  group_by(education) %&gt;%
+  group_by(gender, age)</code></pre>
+<pre><code>## # A tibble: 2,800 x 8
+## # Groups:   gender, age [115]
+##       C1    C2    C3    C4    C5   age gender education   
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       
+##  1     2     3     3     4     4    16      1 &lt;NA&gt;        
+##  2     5     4     4     3     4    18      2 &lt;NA&gt;        
+##  3     4     5     4     2     5    17      2 &lt;NA&gt;        
+##  4     4     4     3     5     5    17      2 &lt;NA&gt;        
+##  5     4     4     5     3     2    17      1 &lt;NA&gt;        
+##  6     6     6     6     1     3    21      2 Some College
+##  7     5     4     4     2     3    18      1 &lt;NA&gt;        
+##  8     3     2     4     2     4    19      1 HS          
+##  9     6     6     3     4     5    19      1 Below HS    
+## 10     6     5     6     2     1    17      2 &lt;NA&gt;        
+## # … with 2,790 more rows</code></pre>
+<p>Note that the resulting data frame is not grouped by education at all, but by gender and age (i.e. it is not cumulative).</p>
+</div>
+<div id="mutate" class="section level2">
+<h2>6. <code>mutate()</code></h2>
+<p>The <code>mutate()</code> function is one of a few options for how to “apply” (a) function(s) to your split (i.e. <code>group_by()</code>) data frame. When you use <code>mutate()</code>, the resulting data frame will have the same number of rows you started with (which will not be true with <code>summarize()</code> / <code>summarise()</code>). One way to remember is this is that you are directly mutating the existing data frame, either modifying existing columns or creating new ones.</p>
+<p>So to continue with the example above, if we were to add a column that indicated average age levels within each age group, we would call:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  arrange(education) %&gt;%
+  group_by(education) %&gt;% 
+  mutate(age_by_edu = mean(age, na.rm = T))</code></pre>
+<pre><code>## # A tibble: 2,800 x 9
+## # Groups:   education [6]
+##       C1    C2    C3    C4    C5   age gender education age_by_edu
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
+##  1     6     6     3     4     5    19      1 Below HS        25.1
+##  2     4     3     5     3     2    21      1 Below HS        25.1
+##  3     5     5     5     2     2    17      1 Below HS        25.1
+##  4     5     5     4     1     1    18      1 Below HS        25.1
+##  5     4     5     4     3     3    18      1 Below HS        25.1
+##  6     3     2     3     4     6    18      2 Below HS        25.1
+##  7     3     6     3     1     3    43      2 Below HS        25.1
+##  8     5     3     2     4     6    32      1 Below HS        25.1
+##  9     5     5     4     3     4    18      1 Below HS        25.1
+## 10     4     5     5     2     3    18      2 Below HS        25.1
+## # … with 2,790 more rows</code></pre>
+<p>As you can see in the resulting data frame, each person (row) with the same education level has the same value in the new <code>age_by_edu</code> column I just added.</p>
+<p><code>mutate()</code> is also super useful even when you aren’t grouping. For example, if I wanted to recode gender so that 1 = “male” and 2 = “female,” we could do that like:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  mutate(gender_cat = plyr::mapvalues(gender, c(1,2), c(&quot;Male&quot;, &quot;Female&quot;)))</code></pre>
+<pre><code>## # A tibble: 2,800 x 9
+##       C1    C2    C3    C4    C5   age gender education    gender_cat
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;     
+##  1     2     3     3     4     4    16      1 &lt;NA&gt;         Male      
+##  2     5     4     4     3     4    18      2 &lt;NA&gt;         Female    
+##  3     4     5     4     2     5    17      2 &lt;NA&gt;         Female    
+##  4     4     4     3     5     5    17      2 &lt;NA&gt;         Female    
+##  5     4     4     5     3     2    17      1 &lt;NA&gt;         Male      
+##  6     6     6     6     1     3    21      2 Some College Female    
+##  7     5     4     4     2     3    18      1 &lt;NA&gt;         Male      
+##  8     3     2     4     2     4    19      1 HS           Male      
+##  9     6     6     3     4     5    19      1 Below HS     Male      
+## 10     6     5     6     2     1    17      2 &lt;NA&gt;         Female    
+## # … with 2,790 more rows</code></pre>
+<p>We could also just write over the original gender category like:</p>
+<pre class="r"><code>bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  mutate(gender = plyr::mapvalues(gender, c(1,2), c(&quot;Male&quot;, &quot;Female&quot;)))</code></pre>
+<pre><code>## # A tibble: 2,800 x 8
+##       C1    C2    C3    C4    C5   age gender education   
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       
+##  1     2     3     3     4     4    16 Male   &lt;NA&gt;        
+##  2     5     4     4     3     4    18 Female &lt;NA&gt;        
+##  3     4     5     4     2     5    17 Female &lt;NA&gt;        
+##  4     4     4     3     5     5    17 Female &lt;NA&gt;        
+##  5     4     4     5     3     2    17 Male   &lt;NA&gt;        
+##  6     6     6     6     1     3    21 Female Some College
+##  7     5     4     4     2     3    18 Male   &lt;NA&gt;        
+##  8     3     2     4     2     4    19 Male   HS          
+##  9     6     6     3     4     5    19 Male   Below HS    
+## 10     6     5     6     2     1    17 Female &lt;NA&gt;        
+## # … with 2,790 more rows</code></pre>
+</div>
+<div id="summarize-summarise" class="section level2">
+<h2>7. <code>summarize()</code> / <code>summarise()</code></h2>
+<p>The <code>summarize()</code> / <code>summarise()</code> functions (choose your spelling as you will) is another of the options for how to “apply” (a) function(s) to your split (i.e. <code>group_by()</code>) data frame. When you use <code>summarize()</code> (I made by choice), the resulting data frame will have the number of rows equal to the number of <code>group_by()</code> categories you provide. So if you provided <code>education</code>, that will be 6, and if you provided none, it would be one.</p>
+<pre class="r"><code># group_by() education
+bfi %&gt;%
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  arrange(education) %&gt;%
+  group_by(education) %&gt;% 
+  summarize(age_by_edu = mean(age, na.rm = T))  </code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   education     age_by_edu
+## * &lt;chr&gt;              &lt;dbl&gt;
+## 1 Below HS            25.1
+## 2 College             33.0
+## 3 Higher Degree       35.3
+## 4 HS                  31.5
+## 5 Some College        27.2
+## 6 &lt;NA&gt;                18.0</code></pre>
+<pre class="r"><code># no groups  
+bfi %&gt;% 
+  select(starts_with(&quot;C&quot;), age, gender, education) %&gt;%
+  arrange(education) %&gt;%
+  summarize(age_by_edu = mean(age, na.rm = T))  </code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   age_by_edu
+##        &lt;dbl&gt;
+## 1       28.8</code></pre>
+<p>From this, for example, it becomes clear that all the <code>NA</code>s in the <code>education</code> variable were because they reflected 18 year olds who had not yet completed high school as well as that the sample is pretty young overall.</p>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>This has been a quick and relatively low level introduction into some of the core functions in the <code>dplyr</code> package. I challenge you to try to take what you learned and apply it to some of your own data.</p>
+<p>In the next tutorial, we will touch on data wrangling, introducing the <code>tidyr</code> packages. This will provide methods for changing the shape for your data, which, in turn, will open up new opportunities to use <code>dplyr</code> functions in useful ways. We will then take all of that and roll it into additional packages and tools.</p>
+</div>
