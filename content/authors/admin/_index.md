@@ -7,7 +7,7 @@ education:
     year: 2020
   - course: MA in Personality Psychology 
     institution: Washington University in St. Louis
-    year: 20019
+    year: 2019
   - course: BA in Psychology with Honors
     institution: Brown University
     year: 2016
