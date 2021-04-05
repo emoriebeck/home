@@ -1,6 +1,6 @@
 +++
 title = "Subjective (In)authenticity Stemming from Emotion Regulation Strategy Employment and Interactions with Others"
-date = "2021-01-01"
+date = "NA"
 authors = ["Seth Wilensky", "E. D. Beck"]
 publication_types = ["2"]
 publication = "Manuscript in preparation"

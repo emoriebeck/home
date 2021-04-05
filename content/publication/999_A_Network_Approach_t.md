@@ -1,6 +1,6 @@
 +++
 title = "A Network Approach to Top Down and Bottom Up Life Satisfaction"
-date = "2021-01-01"
+date = "NA"
 authors = ["Felix Cheung", "E. D. Beck", "Joshua J. Jackson"]
 publication_types = ["2"]
 publication = "Manuscript in Preparation"

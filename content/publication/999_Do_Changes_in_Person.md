@@ -1,6 +1,6 @@
 +++
 title = "Do Changes in Personality Imply Changes in Behavior? A Longitudinal ESM Study"
-date = "2021-01-01"
+date = "NA"
 authors = ["E. D. Beck", "Joshua J. Jackson"]
 publication_types = ["2"]
 publication = "Manuscript in Preparation"

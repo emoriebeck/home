@@ -1,6 +1,6 @@
 +++
 title = "Detecting Idiographic Personality Change"
-date = "2021-01-01"
+date = "NA"
 authors = ["E. D. Beck", "Joshua J. Jackson"]
 publication_types = ["2"]
 publication = "Manuscript under review"

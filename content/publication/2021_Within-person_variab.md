@@ -1,6 +1,6 @@
 +++
 title = "Within-person variability"
-date = "2021-01-01"
+date = "2021-02-01"
 authors = ["E. D. Beck", "Joshua J Jackson"]
 publication_types = ["6"]
 publication = "_The Handbook of Personality Dynamics and Processes_, pp. 75--100"

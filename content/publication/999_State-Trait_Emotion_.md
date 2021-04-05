@@ -1,6 +1,6 @@
 +++
 title = "State-Trait Emotion Regulation Convergence"
-date = "2021-01-01"
+date = "NA"
 authors = ["Lameese Eldesouky", "E. D. Beck", "James J. Gross", "Tammy English"]
 publication_types = ["2"]
 publication = "Manuscript under review"

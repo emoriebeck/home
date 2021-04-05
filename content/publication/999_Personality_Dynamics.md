@@ -1,6 +1,6 @@
 +++
 title = "Personality Dynamics"
-date = "2021-01-01"
+date = "NA"
 authors = ["Eranda Jayawickreme", "William Fleeson", "E. D. Beck", "Anna Baumert", "Jonathan M. Adler"]
 publication_types = ["2"]
 publication = "Manuscript under review"

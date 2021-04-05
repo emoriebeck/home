@@ -1,6 +1,6 @@
 +++
 title = "On Predicting Other People Some of the Time: Within- and Cross-Situational Consistency in Behavior"
-date = "2021-01-01"
+date = "NA"
 authors = ["E. D. Beck", "Joshua J. Jackson"]
 publication_types = ["2"]
 publication = "Manuscript in preparation"

@@ -1,6 +1,6 @@
 +++
 title = "A Taxonomy of Data Synthesis: A Tutorial"
-date = "2021-01-01"
+date = "NA"
 authors = ["E. D. Beck", "Eileen K. Graham", "Emily C. Willroth", "Daniel K. Mroczek"]
 publication_types = ["2"]
 publication = "Manuscript in preparation"

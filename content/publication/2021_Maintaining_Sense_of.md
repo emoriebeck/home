@@ -1,10 +1,10 @@
 +++
 title = "Maintaining Sense of Purpose Following Health Adversity in Older Adulthood: A Propensity Score Matching Examination"
-date = "2021-01-01"
+date = "2021-03-01"
 authors = ["Patrick L Hill", "E. D. Beck", "Joshua J Jackson"]
 publication_types = ["2"]
-publication = "The Journals of Gerontology: Series B"
-publication_short = "The Journals of Gerontology: Series B"
+publication = "_The Journals of Gerontology: Series B_"
+publication_short = "_The Journals of Gerontology: Series B_"
 abstract = ""
 abstract_short = ""
 image_preview = ""

@@ -1,10 +1,10 @@
 +++
 title = "Consistency of Idiographic Personality in the Wake of COVID-19: A Longitudinal ESM Study"
-date = "2021-01-01"
+date = "2021-04-01"
 authors = ["E. D. Beck", "Joshua J. Jackson"]
 publication_types = ["2"]
-publication = "European Journal of Personality"
-publication_short = "European Journal of Personality"
+publication = "_European Journal of Personality_"
+publication_short = "_European Journal of Personality_"
 abstract = ""
 abstract_short = ""
 image_preview = ""
