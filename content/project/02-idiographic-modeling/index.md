@@ -10,7 +10,7 @@ image:
 #   name: Follow
 #   url: https://twitter.com/emoriebeck
 # slides: example
-summary: An example of using the in-built project page.
+summary: Person-centered statistical approaches. 
 tags:
 - idiographic
 title: Idiographic Modeling

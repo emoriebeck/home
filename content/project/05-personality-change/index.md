@@ -10,7 +10,7 @@ image:
 #   name: Follow
 #   url: https://twitter.com/emoriebeck
 # slides: example
-summary: An example of using the in-built project page.
+summary: How does personality change within and across people? 
 tags:
 - idiographic
 title: Personality Change  

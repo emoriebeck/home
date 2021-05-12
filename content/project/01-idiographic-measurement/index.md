@@ -10,7 +10,7 @@ image:
 #   name: Follow
 #   url: https://twitter.com/emoriebeck
 # slides: example
-summary: An example of using the in-built project page.
+summary: Theoretical and empirical work on measuring and modeling a person.
 tags:
 - idiographic
 title: Idiographic Measurement

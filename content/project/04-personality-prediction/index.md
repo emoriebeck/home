@@ -10,7 +10,7 @@ image:
 #   name: Follow
 #   url: https://twitter.com/emoriebeck
 # slides: example
-summary: An example of using the in-built project page.
+summary: How do we predict short-term behaviors and long-term outcomes? 
 tags:
 - idiographic
 title: Personality Prediction

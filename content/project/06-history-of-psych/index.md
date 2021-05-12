@@ -10,7 +10,7 @@ image:
 #   name: Follow
 #   url: https://twitter.com/emoriebeck
 # slides: example
-summary: An example of using the in-built project page.
+summary: Some musings on my love of Gordon Allport. 
 tags:
 - idiographic
 title: History of Psychology
