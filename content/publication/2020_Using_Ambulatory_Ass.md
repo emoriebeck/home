@@ -1,7 +1,7 @@
 +++
 title = "Using Ambulatory Assessments to Understand Personality-Health Associations"
 date = "2020-01-01"
-authors = ["Joshua J Jackson", "E. D. Beck"]
+authors = ["J. J. Jackson", "E. D. Beck"]
 publication_types = ["6"]
 publication = "_Personality and Healthy Aging in Adulthood_, pp. 93--110"
 publication_short = "_Personality and Healthy Aging in Adulthood_, pp. 93--110"

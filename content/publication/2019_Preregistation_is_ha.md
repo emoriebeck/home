@@ -1,18 +1,18 @@
 +++
 title = "Preregistation is hard, and worthwhile"
 date = "2019-01-01"
-authors = ["Brian A Nosek", "E. D. Beck", "Lorne Campbell", "Jessica K Flake", "Tom Hardwicke", "David Mellor", "Simine Vazire"]
+authors = ["B. A. Nosek", "E. D.Beck", "L. Campbell", "J. K. Flake", "T. Hardwicke", "D. Mellor", "S. Vazire"]
 publication_types = ["2"]
-publication = "Trends in Cognitive Science"
-publication_short = "Trends in Cognitive Science"
+publication = "_Trends in Cognitive Science_"
+publication_short = "_Trends in Cognitive Science_"
 abstract = ""
 abstract_short = ""
 image_preview = ""
 selected = false
 projects = []
 tags = []
-url_pdf = ""
-url_preprint = ""
+url_pdf = "https://psyarxiv.com/wu3vs/"
+url_preprint = "https://psyarxiv.com/wu3vs/"
 url_code = ""
 url_dataset = ""
 url_project = ""

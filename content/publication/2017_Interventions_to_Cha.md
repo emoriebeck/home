@@ -1,7 +1,7 @@
 +++
 title = "Interventions to Change Personality"
 date = "2017-01-01"
-authors = ["Joshua J. Jackson", "E. D. Beck", "Anissa Mike"]
+authors = ["J. J. Jackson", "E. D. Beck", "A. Mike"]
 publication_types = ["6"]
 publication = "_The Handbook of Personality_"
 publication_short = "_The Handbook of Personality_"
