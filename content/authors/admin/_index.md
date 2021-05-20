@@ -41,6 +41,6 @@ superuser: true
 title: Dr. Emorie D Beck, PhD
 ---
 
-I am a personality pscychologist. My research focuses on the what's, how's, and why's of personality at different levels of aggregations and at different time spans. I am strongly versed in a number of quantitative methods.
+I am a personality psychologist. My research focuses on the what's, how's, and why's of personality at different levels of aggregations and at different time spans. I am strongly versed in a number of quantitative methods.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "files/Beck-CV.pdf" "newtab" >}}CV{{< /staticref >}}.
