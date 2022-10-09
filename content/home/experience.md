@@ -22,14 +22,30 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+   - title: Assistant Professor
+    company: Department of Psychology, University of California, Davis
+    company_url: 'https://psychology.ucdavis.edu/people/edbeck'
+    location: Davis, CA
+    date_start: '2022-07-01'
+    date_end: ''
+    description: |2-
+      The "What Is Personality?" Lab focuses on the consequences of different definintions of personality 
+      for how we understand what personality is, how it changes, and what it predicts. One way of doing 
+      this is to focus on different levels of aggregation. Thus, we study how to understand the personality 
+      of an individual relative to only themself, relative to some others, and relative to all others. 
+  
+      * Design, implement, and publish grant-funded research on personality predictors of health and aging.  
+      * Develop procedures for synthesizing, harmonizing, modeling, and reporting large, multi-study research.  
+      * Collaborate with team members
+      
   - title: Postdoctoral Scholar
     company: Northwestern University Feinberg School of Medicine
     company_url: ''
     location: Chicago, IL
     date_start: '2020-08-01'
-    date_end: ''
+    date_end: '2022-06-30'
     description: |2-
-      As a postdoc, my goals have centered around developing procedures for open, reproducible research and for extending 
+      As a postdoc, my goals centered around developing procedures for open, reproducible research and for extending 
       previous work on idiographic personality and dynamics to the health domain. 
   
       * Design, implement, and publish grant-funded research on personality predictors of health and aging.  
