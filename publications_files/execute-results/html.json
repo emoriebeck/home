@@ -1,0 +1,16 @@
+{
+  "hash": "48c1f46f790e773d7e35d8cf3c3a0f7e",
+  "result": {
+    "markdown": "---\ntitle: \"Publications\"\n---\n\n\n<!-- \\\\hangbibentry{Beck2021Idiographic} -->\n\n\n```{=tex}\n#| echo: false\n\n\\usepackage{hanging}\n\\usepackage[square,sort&compress]{natbib}\n\\usepackage{array, lipsum, bibentry}\n\n\\newcommand\\hangbibentry[1]{%\n    \\smallskip\\hangpara{2em}{1}\\bibentry{#1}. %{indent}{afterline}\n}\n\n\\hangbibentry{Beck2021Idiographic}\n\\bibentry{Beck2021Idiographic}\n```\n\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n```\nignoring entry 'CervoneBeck' (line 343) because :\n\tA bibentry of bibtype 'InCollection' has to specify the field: publisher\n```\n:::\n:::\n\n\nThen, in line, use:\n\n\n```{.r .cell-code}\nprint(biblio[\"Beck2021Idiographic\"])\n```\n\nBeck, E. D. \\, Jackson JJ (2022a). \"Idiographic prediction of\nloneliness and procrastination.\" _\\textup{In press at} Psychological\nScience_.\n\n```{.r .cell-code}\nprint(biblio2[1])\n```\n\n[1] E. *Jayawickreme, W. *Fleeson, *. Beck, E. D., et al. \"Personality\nDynamics\". In: _Personality Science_ (2021).\n",
+    "supporting": [
+      "publications_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

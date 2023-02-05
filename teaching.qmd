@@ -1,0 +1,28 @@
+---
+title: "Teaching"
+---
+
+# PSC 162 - Introduction to Personality  
+This one-quarter course introduces the scientific study of personality. Personality refers to the relatively enduring patterns in people’s thoughts, feelings, and behaviors over time and across situations. The course will involve a combination of lectures, exams, in-class activities, and a written assignment. 
+
+* Winter 2023, UC Davis
+
+# Data Visualization in R  
+
+In scholarly writing, a figure can be worth 1000 words. Data visualization is a key part of the scientific enterprise, yet most students are taught only a small range of visualizations that are most frequently used in their fields and for the types of methods they use. Such standard procedure can limit the reach and scope of scientific work in an era of rapid digital technological innovation. This course will be designed around themes rather than types of visualization. The beginning of the course will cover best practices in data visualization from the perspective of a growing literature on cognitive perceptions of data visualization and will orient students to visualizing data in R using ggplot2. Next, we will cover several broad topic areas, including visualizing probability, differences, and uncertainty. We will conclude with interactive and animated graphics in R and Shiny. Students are highly encouraged to bring their own data from ongoing or completed projects, but this is not required. 
+
+* Fall 2022, UC Davis
+
+# Data Management and Wrangling in R  
+
+Coming soon!
+
+* Fall 2023, UC Davis  
+
+# Current Topics in Personality  
+
+Each term, we read a series of thematically related papers and discuss them. These topics may range from statistical methods to theoretical topics and papers, past and present. The goal of these discussions is to diversify our understandings of what personality is, how we measure it, and more. Where possible, terms end with project proposals related to the term's thematic theme. 
+
+* Fall 2022, UC Davis  
+* Winter 2023, UC Davis  
+

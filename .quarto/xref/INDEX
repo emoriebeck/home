@@ -1,0 +1,80 @@
+{
+  "index.qmd": {
+    "index.html": "49ad88ba"
+  },
+  "about.qmd": {
+    "about.html": "e581334e"
+  },
+  "teaching.qmd": {
+    "teaching.html": "969d35f5"
+  },
+  "talks.qmd": {
+    "talks.html": "4b1ab767"
+  },
+  "papers.qmd": {
+    "papers.html": "d4aba208"
+  },
+  "projects.qmd": {
+    "projects.html": "d32a427b"
+  },
+  "tutorials.qmd": {
+    "tutorials.html": "75a5fab2"
+  },
+  "publications.qmd": {
+    "publications.html": "ac635889"
+  },
+  "dplyr.qmd": {
+    "dplyr.html": "8bbbfce0"
+  },
+  "purrr.qmd": {
+    "purrr.html": "a844b462"
+  },
+  "ggplot2.qmd": {
+    "ggplot2.html": "424cecb0"
+  },
+  "descriptives.qmd": {
+    "descriptives.html": "60a3df55"
+  },
+  "workflow.qmd": {
+    "workflow.html": "6fb3a9c2"
+  },
+  "proportions.qmd": {
+    "proportions.html": "8c56bdd3"
+  },
+  "05-week5-workbook.qmd": {
+    "05-week5-workbook.html": "3a66d7a5"
+  },
+  "07-week7-workbook.qmd": {
+    "07-week7-workbook.html": "5366e1f3"
+  },
+  "08-week8-workbook.qmd": {
+    "08-week8-workbook.html": "01ff786f"
+  },
+  "09-week9-workbook.qmd": {
+    "09-week9-workbook.html": "59f76e40"
+  },
+  "04-week4-workbook.qmd": {
+    "04-week4-workbook.html": "c76d4eed"
+  },
+  "tables.qmd": {
+    "tables.html": "35605c19"
+  },
+  "06-week6-workbook.qmd": {
+    "06-week6-workbook.html": "73ab6b50"
+  },
+  "associations.qmd": {
+    "associations.html": "fd070040"
+  },
+  "uncertainty.qmd": {
+    "uncertainty.html": "e094e713"
+  },
+  "piecing-plots.qmd": {
+    "piecing-plots.html": "4e0a6227"
+  },
+  "shiny.qmd": {
+    "shiny.html": "4856e386"
+  },
+  "odds-ends.qmd": {
+    "odds-ends.html": "8216d772"
+  }
+}

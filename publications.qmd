@@ -1,0 +1,121 @@
+---
+title: "Publications"
+---
+
+<!-- \\hangbibentry{Beck2021Idiographic} -->
+
+```{=tex}
+#| echo: false
+#| results: asis
+
+\usepackage{hanging}
+\usepackage[square,sort&compress]{natbib}
+\usepackage{array, lipsum, bibentry}
+
+\newcommand\hangbibentry[1]{%
+    \smallskip\hangpara{2em}{1}\bibentry{#1}. %{indent}{afterline}
+}
+
+\hangbibentry{Beck2021Idiographic}
+\bibentry{Beck2021Idiographic}
+```
+    
+# Invited Papers  
+
+\*<strong>Beck, E. D.</strong> and \*Christensen, A. P. (2021). Understanding personality as a dynamic cybernetic system (of systems). _European Journal of Personality._ Manuscript under review.
+
+\*Jayawickreme, E., \*Fleeson, W., \*<strong>Beck, E. D.</strong>, \*Baumert, A., and \*Adler, J. (2021). Personality dynamics. _Personality Science_. 2
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2020a). Idiographic traits: A return to Allportian approaches to personality. _Current Directions in Psychological Science, 29_(3):301–308.
+
+Nosek, B. A., <strong>Beck, E. D.</strong>, Campbell, L., Flake, J. K., Hardwicke, T., Mellor, D., and Vazire, S. (2019). Preregistation is hard, and worthwhile. _Trends in Cognitive Science._
+
+# Journal Articles
+
+## 2023  
+Graham, E. K., <strong>Beck, E. D.</strong>, Ong, A., Jackson, K., Willroth, E. C., and Mroczek, D. K. (in press). Advancing the study of loneliness and health in older adults through the use of integrative data analysis. _Journal of Personality and Social Psychology_.
+
+Hawks, Z. W., Strong, R., Jung, L., <strong>Beck, E. D.</strong>, Passell, E., Grinspoon, E., Sliwinski, M., and Germine, L. (in press). Accurate prediction of cognitive reaction time from intraindividual, age, and circadian variables. _Biological Psychiatry: Cognitive Neuroscience and Neuroimaging._
+
+
+## 2022
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2022a). Idiographic prediction of loneliness and procrastination. _Psychological Science. 33_(10), 1767–1782.
+
+<strong>Beck, E. D.</strong>, Jackson, J. J., and Condon, D. M. (2022). Interindividual differences in personality network structure. _European Journal of Personality_.
+
+\*<strong>Beck, E. D.</strong>, \*Workman, C. I., and *Christensen, A. P. (2022). CRediT where credit is due: A comment on Leising et al., (2021). _Personality Science._
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2022b). A mega-analysis of personality prediction: Robustness and boundary conditions. _Journal of Personality and Social Psychology, 122_(3):523–553.
+
+## 2021
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2021a). Detecting idiographic personality change. _Journal of Personality Assessment_, pages 1–17.
+
+Bollich-Ziegler, K. L., <strong>Beck, E. D.</strong>, Hill, P., and Jackson, J. J. (2021). Do correctional facilities correct our youth?: Effects of incarceration and court-ordered community service on personality development. _Journal of Personality and Social Psychology, 121_:894–913.
+
+Yoneda, T., Marroig, A., Graham, E. K., Willroth, E. C., Watermeyer, T., <strong>Beck, E. D.</strong>, Zelinski, E. M., Reynolds, C. A., Pedersen, N. L., Hofer, S. M., Mroczek, D. K., and Muniz-Terrera, G. (2022). Personality predictors of cognitive dispersion: A coordinated analysis of data from seven international studies of older adults. _Neuropsychology, 36_(2):103–115.
+
+Malle, B. F., Austerweil, J. L., Chi, V. B., Kennet, Y. N., <strong>Beck, E. D.</strong>, Thapa, S., and Allaham, M. (2021). Cognitive properties of norm representations. _Cog Sci Proceedings._
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2021b). Idiographic personality coherence: A quasi experimental longitudinal ESM study. _European Journal of Personality_, 0:08902070211017746.
+
+Saef, R., <strong>Beck, E. D.</strong>, and Jackson, J. J. (2021). Examining the dynamic nature of worker subjective well-being: The application of idiographic approaches. _Research in Occupational Stress and Well-Being, 19_:179–200.
+
+Hill, P. L., <strong>Beck, E. D.</strong>, and Jackson, J. J. (2021). Maintaining sense of purpose following health adversity in older adulthood: A propensity score matching examination. _The Journals of Gerontology: Series B, 76_:1574–1579.
+
+Jackson, J. J. and <strong>Beck, E. D.</strong> (2021a). Using idiographic models to distinguish personality and psychopathology. _Journal of Personality, 0_:1–18.
+
+Jackson, J. J. and <strong>Beck, E. D.</strong> (2021b). Personality development beyond
+the mean: Do life events shape personality variability, structure, and ipsative
+continuity? The Journals of Gerontology: Series B, 76(1):20–30.
+
+Frumkin, M. R., Piccirillo, M. L., <strong>Beck, E. D.</strong>, Grossman, J. T., and Rodebaugh, T. L. (2021). Feasibility and utility of idiographic models in the clinic: a pilot study. _Psychotherapy Research, 31_(4):520–534.
+
+## 2020  
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2020b). Consistency and change in idiographic personality: A longitudinal ESM network study. _Journal of Personality and Social Psychology, 118_(5):1080–1100.
+
+## 2019  
+Piccirillo, M. L., <strong>Beck, E. D.</strong>, and Rodebaugh, T. L. (2019). A clinician’s primer for idiographic research: considerations and recommendations. _Behavior Therapy, 50_(5):938–951.
+
+## 2017
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2017). The search for a bridge: Idiographic personality networks. _European Journal of Personality, 31_:530–532.
+
+# Under Review 
+
+Matz, S., <strong>Beck, E. D.</strong>, Atherton, O. E., White, M., Bogg, T., Rauthmann, J., and Mroczek, D. K. (2023). The power of personality in a brave new world: Using personality science and assessment for customized tailoring and targeting. Manuscript under revision.
+
+Willroth, E. C., Graham, E. K., <strong>Beck, E. D.</strong>, and Mroczek, D. K. (2023). Personality change across the lifespan as a predictor of mortality risk in 11 international samples. Manuscript under review.
+
+<strong>Beck, E. D.</strong>, Graham, E. K., Willroth, E. C., and Mroczek, D. K. (2023a). A taxonomy of data synthesis: A tutorial. Manuscript under review.
+
+<strong>Beck, E. D.</strong>, Yoneda, T., Mroczek, D. K., and Graham, E. K. (2023). Personality predictors of dementia diagnosis and neuropathic burden: A mega-analysis. Manuscript under review.
+
+McCabe, K., DeMeo, N., <strong>Beck, E. D.</strong>, Baranksi, E., Clark, D. A., Syed, M., Garrison, S. M., and Soto, C. (2023). Whose personality traits? diversity and inclusion in Big Five conceptualization and measurement. Manuscript under review.
+
+\*Cheung, F., \*<strong>Beck, E. D.</strong>, Thapa, S., and Jackson, J. J. (2023). A network approach to top down and bottom life satisfaction. Manuscript under review.
+
+Eldesouky, L., <strong>Beck, E. D.</strong>, Gross, J. J., and English, T. (2023). State-trait emotion regulation convergence. Manuscript under review.
+
+# In Preparation
+\*<strong>Beck, E. D.</strong>, \*Christensen, A. P., Clark, D. A., Mroczek, D. K., and Jackson, J. J. (2023). Beyond a static, between-person structure of personality. Manuscript in preparation.
+
+<!-- <strong>Beck, E. D.</strong> (2022). Why do states make traits? A three-level model of personality. Proposal invited for full submission. Perspectives on Psychological Science. Manuscript in preparation. -->
+
+<strong>Beck, E. D.</strong>, Scott, S., Sliwinsky, M., Graham, E. K., and Mroczek, D. K. (2023). Individual differences in diurnal cycles of ambulatory cognitive functioning in older adults. Manuscript in preparation.
+
+<strong>Beck, E. D.</strong>, Scott, S., Ong, A., Mroczek, D. K., and Graham, E. K. (2023). Idiographic predictors of physical health and subjective wellbeing: A machine learning approach. Manuscript in preparation.
+
+# Book Chapters 
+<strong>Beck, E. D.</strong> and Thapa, S. (2022). Dynamic systems analysis. In Mobile Sensing in Psychology: Methods and Applications. Guillford Press.
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2021d). Network approaches to representing and understanding psychological dynamics. In Wood, D., Read, S., Harms, P., and Slaughter, A., editors, Measuring and Modeling the Person and Situation. Elsevier, 1st edition.
+
+<strong>Beck, E. D.</strong> and Jackson, J. J. (2021c). Within-person variability. In Rauthmann, J. F., editor, The Handbook of Personality Dynamics and Processes, pages 75–100. Academic Press.
+
+Jackson, J. J., <strong>Beck, E. D.</strong>, and Mike, A. (2021). Interventions to change personality. In John, O. P. and Robins, R., editors, The Handbook of Personality, pages 793–805. The Guilford Press, 4th edition.
+
+Jackson, J. J. and <strong>Beck, E. D.</strong> (2020). Using ambulatory assessments to understand personality-health associations. In Personality and Healthy Aging in Adulthood, pages 93–110. Springer. 
+
+Cervone, D. and <strong>Beck, E. D.</strong> (2020). Theoretical and methodological issues in personality research: General concerns and considerations. In Carducci, B. J., editor, The Wiley-Blackwell Encyclopedia of Personality and Individual Differences. 1st edition.
+
+Thapa, S., <strong>Beck, E. D.</strong>, and Tay, L. (2019). Affect and personality in the workplace. In Yang, L.-Q., Cropanzano, R., Daus, C., and Martinez-Tur, V., editors, Cambridge Handbook of Workplace Affect. Cambridge, 1st edition.

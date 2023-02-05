@@ -1,0 +1,26 @@
+---
+title: "Projects"
+---
+
+# Cardinal States  
+
+The study aims to understand how individual lives unfold in everyday life. Much work on understanding personality involves taking a standard battery of questions and administering them to participants one time. More recently, personality researchers have turned to the experience sampling method in order to capture small slices of individuals’ daily behaviors and experiences. To do so, researchers generally take the same standard batteries meant to describe personality in general and change the wording to make sense in daily life (e.g., “I am often outgoing” becomes “I am outgoing”). However, participants frequently report that (1) these items aren’t applicable in their daily lives or (2) fail to assess things that are actually applicable to their daily lives. This study aims to understand which and how unique experiences unfold in participants’ everyday life. 
+
+Data collection for this study are ongoing. The preregistration of the data collection can be found here: 
+
+**Aim 1: Determining unique content of daily life**
+Participants will be prompted to describe their typical thoughts, feelings, behaviors, and experiences. Then, from this, they’ll be asked to generate a list of 15-20 things (or cardinal states) they think are most important to be assessed to understand their everyday experiences. 
+
+**Aim 2: The utility of unique content of daily life**
+Participants uniquely provided items will be provided to them in experience sampling method surveys sent to them via text message five times per day for three weeks. In addition, we will have them respond to standard personality batteries and report contextual information (e.g., in class). 
+
+**Planned studies **
+Separate pre-registrations linked to the study pre-registration will be submitted for each: 
+-	Item content of unique items
+-	Predicting outcomes (e.g., loneliness, procrastination, studying) using unique v shared items
+-	Psychometric properties of unique items
+-	Association among emotions, emotion regulation strategies, and emotion regulation goals using change as outcome or other systems models
+-	Using people’s free response as folk theories of their own behavior and testing their accuracy
+-	Do person-specific models out-predict hybrid and group-level models in predicting momentary behaviors / experiences
+
+

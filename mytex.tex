@@ -1,0 +1,7 @@
+\usepackage{hanging}
+\usepackage[square,sort&compress]{natbib}
+\usepackage{array, lipsum, bibentry}
+
+\newcommand\hangbibentry[1]{%
+    \smallskip\hangpara{2em}{1}\bibentry{#1}. %{indent}{afterline}
+}

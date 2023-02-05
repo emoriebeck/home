@@ -1,0 +1,14 @@
+{
+  "hash": "342a1c986014c9cc2a043870118ea350",
+  "result": {
+    "markdown": "---\ntitle: \"\"\n---\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](https://github.com/emoriebeck/home/raw/master/static/img/Beck-headshot-2021.jpg){fig-align='center' width=50%}\n:::\n:::\n\n\n## Dr. Emorie D. Beck, PhD\n### Assistant Professor, Department of Psychology\n#### University of California, Davis\n\nDr. Beck's research focuses around the question of what personality is. Definitions have big consequences for how we measure personality, what those measures predict both short- and long-term, how personality is thought to change, and more. One way of doing this is to focus on different levels of aggregation. Thus, she studies how to understand the personality of an individual relative to only themself, relative to some others, and relative to all others.\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,76 @@
+project:
+  type: website
+
+website:
+  title: "Emorie D. Beck, PhD"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About      
+      - href: publications.qmd
+        text: Publications
+      - href: projects.qmd
+        text: Projects
+      - href: tutorials.qmd
+        text: Tutorials
+      - href: talks.qmd
+        text: Talks
+      - href: teaching.qmd
+        text: Teaching
+  sidebar:
+    - title: "About"
+      contents:
+        - about.qmd
+    - title: "Publications"
+      contents:
+        - publications.qmd
+    - title: "Projects"
+      contents: 
+        - projects.qmd
+    - title: "Tutorials"
+      # style: "docked"
+      # background: light
+      contents:
+        - tutorials.qmd
+        - dplyr.qmd
+        - purrr.qmd    
+        - ggplot2.qmd
+        - tables.qmd
+        - workflow.qmd
+        - proportions.qmd
+        - associations.qmd
+        - time-series.qmd
+        - uncertainty.qmd
+        - piecing-plots.qmd
+        - odds-ends.qmd
+        - shiny.qmd
+    - title: "Talks"
+      contents: 
+        - talks.qmd
+    - title: "Teaching"
+      contents: 
+        - teaching.qmd
+  page-navigation: true
+  page-footer: 
+    left: "Copyright 2022, Emorie D Beck" 
+    right: 
+      - icon: github
+        href: https://github.com/emoriebeck
+      - icon: twitter 
+        href: https://twitter.com/EmorieBeck
+
+format:
+  html:
+    theme: cosmo
+    # css: styles.css
+    toc: true
+    # include-in-header: mytex.tex
+csl: "apa-cv.csl"
+bibliography: mybib.bib
+
+editor: visual
+
