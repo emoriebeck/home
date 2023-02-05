@@ -76,5 +76,17 @@
   },
   "odds-ends.qmd": {
     "odds-ends.html": "8216d772"
+  },
+  "old/content/admin/index.md": {
+    "index.html": "b8bad873"
+  },
+  "old/content/courses/example/python.md": {
+    "python.html": "cd3814a2"
+  },
+  "old/content/courses/example/stats.md": {
+    "stats.html": "43067bea"
+  },
+  "old/content/courses/example/visualization.md": {
+    "visualization.html": "b7d18d07"
   }
 }
