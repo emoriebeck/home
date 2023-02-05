@@ -21,7 +21,21 @@ date_format: Jan 2006
 #   Required fields are `title`, `company`, and `date_start`.
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
-experience:
+experience: 
+  - title: Assistant Professor
+    company: University of California, Davis
+    company_url: ''
+    location: Davis, CA
+    date_start: '2022-07-01'
+    date_end: ''
+    description: |2-
+      As a postdoc, my goals centered around developing procedures for open, reproducible research and for extending 
+      previous work on idiographic personality and dynamics to the health domain. 
+  
+      * Design, implement, and publish grant-funded research on personality predictors of health and aging.  
+      * Develop procedures for synthesizing, harmonizing, modeling, and reporting large, multi-study research.  
+      * Collaborate with team members
+      
   - title: Postdoctoral Scholar
     company: Northwestern University Feinberg School of Medicine
     company_url: ''
