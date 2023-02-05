@@ -88,5 +88,8 @@
   },
   "old/content/courses/example/visualization.md": {
     "visualization.html": "b7d18d07"
+  },
+  "time-series.qmd": {
+    "time-series.html": "7b2bc09b"
   }
 }

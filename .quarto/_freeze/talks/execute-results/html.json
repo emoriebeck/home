@@ -2,9 +2,7 @@
   "hash": "26aa7ecd78d109ed653cc47a173c03e0",
   "result": {
     "markdown": "---\ntitle: \"Talks\"\n---\n\n\nAbout this site\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
-    "supporting": [
-      "talks_files"
-    ],
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
